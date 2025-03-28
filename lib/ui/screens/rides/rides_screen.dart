@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../../../model/ride/ride_filter.dart';
 import '../../../providers/ride_pref_provider.dart';
 import 'widgets/ride_pref_bar.dart';
-import '../../../service/ride_prefs_service.dart';
 
 import '../../../model/ride/ride.dart';
 import '../../../model/ride/ride_pref.dart';
@@ -17,6 +16,7 @@ import 'widgets/rides_tile.dart';
 ///  The Ride Selection screen allow user to select a ride, once ride preferences have been defined.
 ///  The screen also allow user to re-define the ride preferences and to activate some filters.
 ///
+// ignore: must_be_immutable
 class RidesScreen extends StatelessWidget {
   RidesScreen({super.key});
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../model/ride/ride_filter.dart';
-import '../../../providers/ride_pref_provider.dart';
+import '../../providers/ride_pref_provider.dart';
 import 'widgets/ride_pref_bar.dart';
 
 import '../../../model/ride/ride.dart';

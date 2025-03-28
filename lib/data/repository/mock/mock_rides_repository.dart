@@ -1,10 +1,10 @@
-import '../../model/ride/ride.dart';
-import '../../model/ride/ride_filter.dart';
-import '../../model/ride/ride_pref.dart';
-import '../../repository/rides_repository.dart';
+import '../../../model/ride/ride.dart';
+import '../../../model/ride/ride_filter.dart';
+import '../../../model/ride/ride_pref.dart';
+import '../rides_repository.dart';
 
-import '../../model/location/locations.dart';
-import '../../model/user/user.dart';
+import '../../../model/location/locations.dart';
+import '../../../model/user/user.dart';
 
 class MockRidesRepository extends RidesRepository {
   final List<Ride> _allRides = [];

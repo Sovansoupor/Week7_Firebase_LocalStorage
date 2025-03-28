@@ -1,5 +1,5 @@
 import '../model/location/locations.dart';
-import '../repository/locations_repository.dart';
+import '../data/repository/locations_repository.dart';
 
 /// The location service is in charge of retrieving the list of locations
 class LocationsService {

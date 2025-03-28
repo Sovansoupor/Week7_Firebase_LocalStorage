@@ -47,6 +47,16 @@ class _RidePrefFormState extends State<RidePrefForm> {
   void initState() {
     super.initState();
 
+     _initializeForm();
+  }
+
+  @override
+  void didUpdateWidget(covariant RidePrefForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Reinitialize the form when the widget is updated
+    _initializeForm();
+  }
+void _initializeForm() {
     if (widget.initialPreference != null) {
       RidePreference current = widget.initialPreference!;
       departure = current.departure;

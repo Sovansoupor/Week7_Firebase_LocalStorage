@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../model/ride/ride_pref.dart';
-import '../../../service/ride_prefs_service.dart';
+import '../../../providers/ride_pref_provider.dart';
 import '../../theme/theme.dart';
 
 import '../../../utils/animations_util.dart';
@@ -16,32 +17,33 @@ const String blablaHomeImagePath = 'assets/images/blabla_home.png';
 /// - Enter his/her ride preference and launch a search on it
 /// - Or select a last entered ride preferences and launch a search on it
 ///
-class RidePrefScreen extends StatefulWidget {
+class RidePrefScreen extends StatelessWidget {
   const RidePrefScreen({super.key});
 
-  @override
-  State<RidePrefScreen> createState() => _RidePrefScreenState();
-}
 
-class _RidePrefScreenState extends State<RidePrefScreen> {
-  onRidePrefSelected(RidePreference newPreference) async {
-    // 1 - Update the current preference
-    RidePrefService.instance.setCurrentPreference(newPreference);
+  void onRidePrefSelected(BuildContext context, RidePreference newPreference) async {
+    // Read the RidesPreferencesProvider
+    final provider = context.read<RidesPreferencesProvider>();
 
-    // 2 - Navigate to the rides screen (with a buttom to top animation)
-    await Navigator.of(context)
-        .push(AnimationUtils.createBottomToTopRoute(RidesScreen()));
+    // Call the provider's setCurrentPreference method
+    provider.setCurrentPreference(newPreference);
 
-    // 3 - After wait  - Update the state   -- TODO MAKE IT WITH STATE MANAGEMENT
-    setState(() {});
-  }
+
+
+    // Navigate to the rides screen (with a bottom-to-top animation)
+    await Navigator.of(context).push(
+      AnimationUtils.createBottomToTopRoute(RidesScreen()),
+    );
+      }
 
   @override
   Widget build(BuildContext context) {
-    RidePreference? currentRidePreference =
-        RidePrefService.instance.currentPreference;
-    List<RidePreference> pastPreferences =
-        RidePrefService.instance.getPastPreferences();
+    // Watch the RidesPreferencesProvider
+    final provider = context.watch<RidesPreferencesProvider>();
+
+    // Get the current preference and history preferences
+    final currentRidePreference = provider.currentPreference;
+    final pastPreferences = provider.preferencesHistory;
 
     return Stack(
       children: [
@@ -70,7 +72,7 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
                   // 2.1 Display the Form to input the ride preferences
                   RidePrefForm(
                       initialPreference: currentRidePreference,
-                      onSubmit: onRidePrefSelected),
+                      onSubmit:(newPreference) => onRidePrefSelected(context, newPreference)),
                   SizedBox(height: BlaSpacings.m),
 
                   // 2.2 Optionally display a list of past preferences
@@ -83,7 +85,7 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
                       itemBuilder: (ctx, index) => RidePrefHistoryTile(
                         ridePref: pastPreferences[index],
                         onPressed: () =>
-                            onRidePrefSelected(pastPreferences[index]),
+                            onRidePrefSelected(context,pastPreferences[index]),
                       ),
                     ),
                   ),

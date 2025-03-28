@@ -22,9 +22,6 @@ class RidesScreen extends StatelessWidget {
 
   RideFilter currentFilter = RideFilter();
 
-  // List<Ride> get matchingRides =>
-  //     RidesService.instance.getRidesFor(currentPreference, currentFilter);
-
   void onRidePrefSelected(
       BuildContext context, RidePreference newPreference) async {
     // Read the RidesPreferencesProvider
